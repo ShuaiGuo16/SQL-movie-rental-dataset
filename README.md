@@ -1,4 +1,4 @@
-# SQL Project 
+# SQL Project
 
 ## Introduction
 
@@ -8,7 +8,7 @@ The purpose of this project is to write SQL queries to investigate business ques
   <img align="center" src="./images/Schema.png" width=300/>
 </p>
 
-## questions
+## Questions
 The investigated questions are listed below. Their corresponding SQL queries can be found in *queries.txt*.
 
 * How many family movies are rented out in each category?
