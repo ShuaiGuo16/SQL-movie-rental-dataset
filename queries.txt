@@ -1,0 +1,68 @@
+/* Query 1- query used for the first question*/
+WITH category_count AS (
+	SELECT f.title Movie,
+       	             c.name Movie_type,
+                             COUNT(rental_date) Rental_number
+	FROM film f
+	JOIN film_category fc ON fc.film_id = f.film_id
+	JOIN category c ON c.category_id = fc.category_id
+	JOIN inventory i ON i.film_id = f.film_id
+	JOIN rental r ON r.inventory_id = i.inventory_id
+	WHERE c.name IN ('Animation','Children','Classics', 'Comedy', 'Family', 'Music')
+	GROUP BY 1,2
+	ORDER BY 2
+)
+
+SELECT Movie_type, SUM(Rental_number)
+FROM category_count 
+GROUP BY 1
+ORDER BY 2 DESC
+
+
+/* Query 2- query used for the second question*/
+WITH t1 AS (
+  SELECT f.title,
+        c.name,
+        f.rental_duration,
+        NTILE(4) OVER (ORDER BY f.rental_duration) AS quartile_indicator
+  FROM film f
+  JOIN film_category fc ON fc.film_id = f.film_id
+  JOIN category c ON c.category_id = fc.category_id
+  WHERE c.name IN ('Animation','Children','Classics', 'Comedy', 'Family', 'Music')
+)
+
+SELECT name, quartile_indicator, COUNT(*)
+FROM t1
+GROUP BY 1,2
+ORDER BY 1,2;
+
+/* Query 3- query used for the third question*/
+SELECT DATE_PART('month',r.rental_date) AS Rental_month,
+       DATE_PART('year',r.rental_date) AS Rental_year,
+       s.store_id AS Store_ID,
+       COUNT(*) AS Count_rentals
+FROM store s
+JOIN staff st ON st.store_id = s.store_id
+JOIN rental r ON r.staff_id = st.staff_id
+GROUP BY 1,2,3
+ORDER BY 4 DESC;
+
+/* Query 4- query used for the fourth question*/
+WITH top_customers AS (
+  SELECT CONCAT(c.first_name,' ',c.last_name) AS full_name,
+         SUM(p.amount) AS pay_amount
+  FROM customer c
+  JOIN payment p ON p.customer_id = c.customer_id
+  GROUP BY 1
+  ORDER BY 2 DESC
+  LIMIT 10
+)
+
+SELECT DATE_TRUNC('month',p.payment_date) AS pay_time,
+       CONCAT(c.first_name,' ',c.last_name) AS full_name,
+       SUM(p.amount) AS pay_amount
+FROM customer c
+JOIN payment p ON p.customer_id = c.customer_id
+JOIN top_customers t ON t.full_name = CONCAT(c.first_name,' ',c.last_name)
+GROUP BY 2,1
+ORDER BY 2,1;
