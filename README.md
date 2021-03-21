@@ -5,7 +5,7 @@
 The purpose of this project is to write SQL queries to investigate business questions of the **Sakila DVD Rental database**. The Sakila Database holds information about a company that rents movie DVDs. This dataset can be obtained from this page: [PostgreSQL Sample Database](https://www.postgresqltutorial.com/postgresql-sample-database/). A schema of this dataset is shown below:
 
 <p align="center">
-  <img align="center" src="./images/Schema.PNG" width=500/>
+  <img align="center" src="./images/Schema.PNG" width=300/>
 </p>
 
 ## questions
@@ -14,7 +14,7 @@ The investigated questions are listed below. Their corresponding SQL queries can
 * How many family movies are rented out in each category?
 
 <p align="center">
-  <img align="center" src="./images/Q1.PNG" width=500/>
+  <img align="center" src="./images/Q1.PNG" width=400/>
 </p>
 
 We can see that among family movies, animation is the most popular type, which was rented out 1166 times. Music is the least popular type, which was rented out 830 times.
