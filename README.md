@@ -1,4 +1,4 @@
-# SQL Project (Udacity)
+# SQL Project 
 
 ## Introduction
 
